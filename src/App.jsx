@@ -27,3 +27,54 @@ function Button({ children, onClick }) {
     </button>
   );
 }
+function App() {
+  const [showAddf, setShowAddf] = useState(false);
+  const [friends, setFriends] = useState(initialFriends);
+
+  const [selectedFriend, setSelectedFriend] = useState(null);
+
+  function handleShowAddf() {
+    setShowAddf((show) => !show);
+  }
+  function handleAddFriend(friend) {
+    setFriends((friends) => [...friends, friend]);
+    setShowAddf(false);
+  }
+  function handleSelection(friend) {
+    setSelectedFriend((curr) => (curr?.id === friend.id ? null : friend));
+    setShowAddf(false);
+  }
+  function handleSplitBill(value) {
+    setFriends((friends) =>
+      friends.map((friend) =>
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    );
+    setSelectedFriend(null);
+  }
+  return (
+    <div className="app">
+      <div className="sidebar">
+        <FriendList
+          friends={friends}
+          onSelection={handleSelection}
+          selectedFriend={selectedFriend}
+        />
+
+        {showAddf && <FormAddFriend onAddFriend={handleAddFriend} />}
+
+        <Button onClick={handleShowAddf}>
+          {showAddf ? "Close" : "Add Friend"}
+        </Button>
+      </div>
+      {selectedFriend && (
+        <FormSplitBill
+          selectedFriend={selectedFriend}
+          onSplitBill={handleSplitBill}
+        />
+      )}
+    </div>
+  );
+}
