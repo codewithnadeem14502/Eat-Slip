@@ -167,3 +167,29 @@ form h2 {
   letter-spacing: -0.5px;
   margin-bottom: 1.6rem;
 }
+@media only screen and (max-width: 768px) {
+  .sidebar {
+    margin-top: 200px;
+    padding-top: 200px;
+  }
+  .app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .form-split-bill {
+    margin-top: 50px;
+  }
+}
+@media only screen and (min-width: 767px) {
+  .app {
+    column-gap: 2rem;
+  }
+  .sidebar li {
+    margin-left: 25px;
+  }
+  form {
+    gap: 0;
+  }
+}
